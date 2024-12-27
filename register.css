@@ -10,7 +10,6 @@ body{
   display: flex;
   align-items: center;
   justify-content: flex-end;
-
   background-image: url('assets/groot-bebe-escuchando-musica-6450.webp');
   background-size: cover;
   background-position-x: -200px;

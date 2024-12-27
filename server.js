@@ -68,14 +68,18 @@ const server = http.createServer((req, res) => {
       });
       req.on("end", () => {
         let readdata = fs.readFileSync("User.json", "utf-8");
+        let jsonData;
+        let users = [];
         if (!readdata) {
           fs.writeFileSync("User.json", JSON.stringify([]));
-        } else {
-          let jsonData = JSON.parse(readdata);
+        } 
+        else{
+          jsonData = JSON.parse(readdata);
           console.log(jsonData);
-          let users = [...jsonData];
-          let convertedbody = qs.decode(body);
-          users.push(convertedbody);
+          users = [...jsonData];
+        }
+        let bodyObject = qs.parse(body);
+        users.push(bodyObject);
           fs.writeFile("User.json", JSON.stringify(users), (err) => {
             if (err) {
               console.log(err);
@@ -83,7 +87,7 @@ const server = http.createServer((req, res) => {
               console.log("userdata inserted succefuly");
             }
           });
-        }
+        
         fs.readFile("user_details.html", "utf8", (err, data) => {
           if (err) {
             res.writeHead(500);
